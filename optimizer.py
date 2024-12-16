@@ -161,10 +161,14 @@ class ParameterOptimizer:
             # Tuning mode: Regular
             for value in parameter_values:
                 logging.info(f'In Regular')
-
+                print(f'----------------')
+                print(f'self.Top_offenders_per_run_dict: {self.Top_offenders_per_run_dict}') 
                 # Evaluate the current parameter value
-                wmape, bias, self.Top_offenders_per_run_dict  = self.run_process(self.what_to_tune, parameter_id = parameter_id, parameter_name = parameter_name, parameter_value = value, permutation = None, ind = None, CF_kinds_table_id = None, kind_value = None, Top_offenders_per_run_dict = self.Top_offenders_per_run_dict)                       
-                                
+                wmape, bias, self.Top_offenders_per_run_dict  = self.run_process(self.what_to_tune, parameter_id = parameter_id, parameter_name = parameter_name,
+                                                                                 parameter_value = value, permutation = None, ind = None, CF_kinds_table_id = None,
+                                                                                 kind_value = None, Top_offenders_per_run_dict = self.Top_offenders_per_run_dict)                       
+                print(f'----------------')
+                print(f'self.Top_offenders_per_run_dict: {self.Top_offenders_per_run_dict}')       
                 logging.info(f'Current WMAPE: {wmape}, current Bias: {bias} ')
 
                 # Update metrics dictionary for the parameter and its value
@@ -294,6 +298,32 @@ class ParameterOptimizer:
             filename = os.path.join(output_dir, f"{combination}_combined.xlsx")
             combined_df.to_excel(filename, index=False)
             print(f"Saved: {filename}")
+
+
+            # Step 1: Group columns by their prefix and exclude the output measure columns
+            unique_columns = {}
+            for col in combined_df.columns:
+                prefix = col.split('_')[0]  # Extract prefix before first underscore
+                if not col.startswith(self.plan.output_measure):  # Ignore output measure columns
+                    if prefix not in unique_columns:
+                        unique_columns[prefix] = col  # Keep the first occurrence
+                else:
+                    unique_columns[col] = col  # Always keep output measure columns
+
+            # Step 2: Create a new DataFrame with the selected columns
+            new_columns = list(unique_columns.values())
+            df_cleaned = combined_df[new_columns]
+
+            # Step 3: Rename columns for duplicates to clean prefixes
+            df_cleaned.columns = [col.split('_')[0] if not col.startswith(self.plan.output_measure) else col for col in df_cleaned.columns]
+
+            # Move "OOS" and "End of History" to the last two positions
+            columns = [col for col in df_cleaned.columns if col not in ["End of History", "OOS"]]
+            columns += ["End of History", "OOS"]  # Append the desired columns at the end
+
+            # Reorder DataFrame
+            df_cleaned = df_cleaned[columns]
+            df_cleaned.to_excel(filename, index=False)
         
 
     def optimize_parameters(self):
@@ -381,8 +411,8 @@ class ParameterOptimizer:
         final_report(self.profile, self.all_parameters_results, self.before_and_after_accuracy_df,
                      self.best_values_df,best_CF_Kind_value_df = None, all_kinds_results_df = None, 
                      what_to_tune = "Parameters", best_kinds_df = None, file_path = "Final Report Parameters.xlsx")
-        
-        self.create_top_offenders_comparison_dfs()
+        if self.Top_offenders_per_run_dict:
+            self.create_top_offenders_comparison_dfs()
 
 
 
@@ -448,15 +478,18 @@ class ParameterOptimizer:
         # Iterate over each kind value in the provided list
         for kind_value in self.kind_values_lst:
             # Run the tuning process for the current kind value
-            wmape, bias, merged_df, kinds_table = self.run_process(self.what_to_tune, None, None, None, permutation = None, ind = None, 
-                                                                   CF_kinds_table_id = self.CF_kinds_table_id, kind_value = kind_value)
+            print(f'in optimize CFs: kind value = {kind_value}')
+            print(f'in optimize CFs: self.Top_offenders_per_run_dict = {self.Top_offenders_per_run_dict}')
+            wmape, bias, merged_df, kinds_table, self.Top_offenders_per_run_dict  = self.run_process(self.what_to_tune, None, None, None, permutation = None, ind = None, 
+                                                                   CF_kinds_table_id = self.CF_kinds_table_id, kind_value = kind_value,
+                                                                   Top_offenders_per_run_dict = self.Top_offenders_per_run_dict)
             # Store WMAPE and Bias results for the current kind value
             self.all_kinds_results[kind_value] = [wmape, bias]
 
             # Dynamically select columns based on their position
             self.merged_dfs_lst[kind_value] = merged_df.iloc[:, [
-                0,                      # First column 
-                1,                      # Second column
+                0,                      # First column (product level)
+                1,                      # Second column (location level)
                 2,                      # Third column (combination)
                 -2                      # Column one before the last  (abs error)
             ]]
@@ -511,6 +544,8 @@ class ParameterOptimizer:
             logging.info(f'Configuring best kind ID per combination on ODMC')
             self.configure_best_kinds_per_comb_ODMC(kinds_table)
 
+        if self.Top_offenders_per_run_dict:
+            self.create_top_offenders_comparison_dfs()
 
 
     def functions_navigator(self):

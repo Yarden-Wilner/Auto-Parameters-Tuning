@@ -471,7 +471,7 @@ def process_top_offenders(generator, top_offenders_table, plan_details_df, y_axi
         plan_details_df (DataFrame): Plan details DataFrame.
         y_axis_cols (list): List of Y-axis columns for charting.
     """
-
+    print(f'in process_top_offenders: Top_offenders_per_run_dict = {Top_offenders_per_run_dict}')
     for combination in top_offenders_oos["Combination"].unique():
         # Filter the DataFrame for the current combination
         subset_df = top_offenders_table[top_offenders_table["Combination"] == combination].copy()
@@ -520,16 +520,21 @@ def process_top_offenders(generator, top_offenders_table, plan_details_df, y_axi
 
         #for Top Offenders comparison by run:
         # Append the dictionary to the list within the dictionary `Top_offenders_per_run_dict`
+        print(f'Before if: Top_offenders_per_run_dict = {Top_offenders_per_run_dict}')
         if combination not in Top_offenders_per_run_dict:
             Top_offenders_per_run_dict[combination] = []  # Initialize the list if not present
 
         # Append the dictionary
         Top_offenders_per_run_dict[combination].append({
-            (parameter_name, parameter_value): subset_df[[time_level, output_measure]]
+            (parameter_name, parameter_value): subset_df
         })
 
         # Write the subset DataFrame to a sheet
         sheet_name = str(combination)[:31]
+
+        subset_df.to_csv(f'{sheet_name}.csv')
+        
+
         generator.write_dataframe(subset_df, sheet_name, bold_text=f"Combination: {combination}")
 
         # Define the X-axis range
@@ -549,12 +554,16 @@ def write_top_offenders(generator, top_offenders_oos, top_offenders_table, y_axi
     """
     generator.write_dataframe(top_offenders_oos, "Top Offenders", bold_text="Top Offenders:")
     generator.set_column_width("Top Offenders", "A:P", 15)
+    print(f'is_valid_top_offenders: {is_valid_top_offenders}')
 
-
-    if is_valid_top_offenders:
+    if is_valid_top_offenders == "Valid":
+        print(f'in write_top_offenders -- valid: Top_offenders_per_run_dict = {Top_offenders_per_run_dict}')
         Top_offenders_per_run_dict_updated = process_top_offenders(generator, top_offenders_table, plan_details_df, y_axis_cols, top_offenders_oos, time_level, 
                                                                    Top_offenders_per_run_dict, parameter_name, parameter_value, output_measure)
-        return Top_offenders_per_run_dict_updated
+    else:
+        print('in else')
+        Top_offenders_per_run_dict_updated = Top_offenders_per_run_dict
+    return Top_offenders_per_run_dict_updated
         
 
 def process_and_export(profile, plan, client, base_url, accuracy_table_id, top_offenders_table_id, year_over_year_table_id, number_of_top_offenders,
@@ -700,7 +709,7 @@ def process_and_export(profile, plan, client, base_url, accuracy_table_id, top_o
         elif what_to_tune == "CFs":
             print(f"Exported results to {file_path} for kind value {kind_value} ")
             logging.info(f'Exported results to {file_path} for kind value {kind_value} ')
-            return accuracy_table.wmape, accuracy_table.bias, accuracy_table.merged_df, kinds_table
+            return accuracy_table.wmape, accuracy_table.bias, accuracy_table.merged_df, kinds_table, Top_offenders_per_run_dict_updated
 
     except PlanExecutionError as e:
         # Handle plan execution errors

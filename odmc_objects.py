@@ -12,7 +12,6 @@ import time
 import logging
 import sys
 
-print("hello")
 
 class Profile:
     def __init__(self, client, base_url, profile_id, parameters_input):

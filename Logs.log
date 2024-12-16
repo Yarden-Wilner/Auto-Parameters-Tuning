@@ -1,0 +1,38 @@
+2024-12-16 18:17:17,244 - INFO - Loaded configuration values:
+2024-12-16 18:17:17,244 - INFO - username: sharon.eliasi@stryker.com
+2024-12-16 18:17:17,244 - INFO - password: Welcome123
+2024-12-16 18:17:17,244 - INFO - servername: fa-euwg-dev3-saasfaprod1.fa.ocs.oraclecloud.com
+2024-12-16 18:17:17,244 - INFO - profile_id: 300000049953003
+2024-12-16 18:17:17,245 - INFO - plan_id: 300000049960080
+2024-12-16 18:17:17,245 - INFO - accuracy_table_id: 300000049953251
+2024-12-16 18:17:17,245 - INFO - top_offenders_table_id: 300000049968289
+2024-12-16 18:17:17,245 - INFO - year_over_year_table_id: 300000050001375
+2024-12-16 18:17:17,245 - INFO - parameters_input: {'FitValidationSensitivity': [1], 'ForecastValidationSensitivity': [4.5]}
+2024-12-16 18:17:17,245 - INFO - number_of_top_offenders: 3
+2024-12-16 18:17:17,245 - INFO - tune_by_wmape: On
+2024-12-16 18:17:17,245 - INFO - base_wmape: 0.1526
+2024-12-16 18:17:17,245 - INFO - base_bias: -0.0336
+2024-12-16 18:17:17,245 - INFO - parameters_tuning_mode: Regular
+2024-12-16 18:17:17,245 - INFO - tune_by_step: Off
+2024-12-16 18:17:17,245 - INFO - CF_kinds_table_id: 300000049968529
+2024-12-16 18:17:17,245 - INFO - kind_values_lst: [1, 2]
+2024-12-16 18:17:17,245 - INFO - Configure_best_kind_IDs_on_ODMC: Off
+2024-12-16 18:17:17,245 - INFO - __________________________________________________________________________________________________________________________________________________
+2024-12-16 18:17:19,941 - INFO - Going CFs Tuning
+2024-12-16 18:17:19,941 - INFO - URL: https://fa-euwg-dev3-saasfaprod1.fa.ocs.oraclecloud.com:443/fscmRestApi/resources/11.13.18.05/supplyChainPlans/300000049960080/child/PlanningTables/300000049968529/child/Data
+2024-12-16 18:17:48,740 - INFO - start post request: uploading kind values to a table
+2024-12-16 18:18:13,387 - INFO - completed post request
+2024-12-16 18:18:13,388 - INFO - Launched plan: TX SYK Dem Plan - JR - Copy3:  kind value: 1 
+2024-12-16 18:18:13,388 - INFO - Run is completed
+2024-12-16 18:20:17,087 - INFO - Exported results to Kind_1_Dec012.xlsx for kind value 1 
+2024-12-16 18:20:17,088 - INFO - Best Wmape for CF kinds tuning so far (kind ID = 1)
+2024-12-16 18:20:17,089 - INFO - old self.best_wmape: 0.1526
+2024-12-16 18:20:17,089 - INFO - current wmape: 0.13197786291450897
+2024-12-16 18:20:17,111 - INFO - URL: https://fa-euwg-dev3-saasfaprod1.fa.ocs.oraclecloud.com:443/fscmRestApi/resources/11.13.18.05/supplyChainPlans/300000049960080/child/PlanningTables/300000049968529/child/Data
+2024-12-16 18:20:45,993 - INFO - start post request: uploading kind values to a table
+2024-12-16 18:21:11,287 - INFO - completed post request
+2024-12-16 18:21:11,287 - INFO - Launched plan: TX SYK Dem Plan - JR - Copy3:  kind value: 2 
+2024-12-16 18:21:11,287 - INFO - Run is completed
+2024-12-16 18:23:13,754 - INFO - Exported results to Kind_2_Dec012.xlsx for kind value 2 
+2024-12-16 18:23:13,756 - INFO - self.best_value: 1
+2024-12-16 18:23:13,763 - INFO - In final report. what_to_tune = CFs
