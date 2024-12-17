@@ -281,15 +281,25 @@ class ParameterOptimizer:
         # Iterate over each combination in the dictionary
         for combination, data_list in self.Top_offenders_per_run_dict.items():
             combined_df = pd.DataFrame()  # Start with an empty DataFrame
-            
-            for data in data_list:
-                for (parameter_name, parameter_value), subset_df in data.items():
-                    # Add a suffix to the column names
-                    suffix = f"_{parameter_name}_{parameter_value}"
-                    subset_df_with_suffix = subset_df.add_suffix(suffix)
-                    
-                    # Concatenate the DataFrame with the current combined DataFrame
-                    combined_df = pd.concat([combined_df, subset_df_with_suffix], axis=1)
+            if self.what_to_tune == "Parameters":
+                for data in data_list:
+                    for (parameter_name, parameter_value), subset_df in data.items():
+                        # Add a suffix to the column names
+                        suffix = f"_{parameter_name}_{parameter_value}"
+                        subset_df_with_suffix = subset_df.add_suffix(suffix)
+                        
+                        # Concatenate the DataFrame with the current combined DataFrame
+                        combined_df = pd.concat([combined_df, subset_df_with_suffix], axis=1)
+
+            elif self.what_to_tune == "CFs":
+                for data in data_list:
+                    for kind_id_key, subset_df in data.items():
+                        # Add a suffix to the column names
+                        suffix = f"Kind s{kind_id_key}"
+                        subset_df_with_suffix = subset_df.add_suffix(suffix)
+                        
+                        # Concatenate the DataFrame with the current combined DataFrame
+                        combined_df = pd.concat([combined_df, subset_df_with_suffix], axis=1)
             
             # Store the resulting DataFrame in the dictionary
             top_offenders_comparison_dfs[combination] = combined_df

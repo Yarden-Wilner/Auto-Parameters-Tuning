@@ -139,7 +139,8 @@ class ExcelReportGenerator:
 def Export_Accuracy_to_Excel(
     plan_details_df, current_parameters, merged_df, accuracy_df_for_export, grouped_accuracy,
     methods_and_levels_dfs, top_offenders_oos, top_offenders_table, y_axis_cols, 
-    is_valid_top_offenders, yoy_df, is_valid_yoy, time_level, input_measure, output_measure, parameter_name, parameter_value, Top_offenders_per_run_dict, file_path):
+    is_valid_top_offenders, yoy_df, is_valid_yoy, time_level, input_measure, output_measure,
+    parameter_name, parameter_value, Top_offenders_per_run_dict, what_to_tune, kind_value, file_path):
     """
     Main function to generate an Excel report with multiple sheets.
     """
@@ -153,7 +154,7 @@ def Export_Accuracy_to_Excel(
         write_year_over_year(generator, yoy_df, plan_details_df, time_level, input_measure, output_measure)
 
     Top_offenders_per_run_dict_updated = write_top_offenders(generator, top_offenders_oos, top_offenders_table, y_axis_cols, is_valid_top_offenders, plan_details_df,
-                        time_level, parameter_name, parameter_value, Top_offenders_per_run_dict, output_measure)
+                        time_level, parameter_name, parameter_value, Top_offenders_per_run_dict, output_measure, what_to_tune, kind_value)
 
     # Save the report
     generator.save()
@@ -461,7 +462,7 @@ def process_combination_chart(generator, subset_df, x_axis_range, y_axis_cols, s
 
 
 def process_top_offenders(generator, top_offenders_table, plan_details_df, y_axis_cols, top_offenders_oos, time_level, Top_offenders_per_run_dict,
-                          parameter_name, parameter_value, output_measure):
+                          parameter_name, parameter_value, output_measure, what_to_tune, kind_value):
     """
     Processes and generates charts for each combination in the top offenders table.
 
@@ -510,10 +511,7 @@ def process_top_offenders(generator, top_offenders_table, plan_details_df, y_axi
         )
 
 
-        # Add OOS column based on history dates
-        #history_columns = [col for col in subset_df.columns if col.endswith("_History")]
-        #history_dates = pd.to_datetime([col.replace("_History", "") for col in history_columns])
-        #min_OOS_date, max_OOS_date = history_dates.min(), history_dates.max()
+
         subset_df["OOS"] = subset_df[time_level].apply(lambda x: 1 if x in [min_OOS_date, max_OOS_date] else None)
         # Convert "Month" to date type
         subset_df[time_level] = subset_df[time_level].dt.date
@@ -525,10 +523,14 @@ def process_top_offenders(generator, top_offenders_table, plan_details_df, y_axi
             Top_offenders_per_run_dict[combination] = []  # Initialize the list if not present
 
         # Append the dictionary
-        Top_offenders_per_run_dict[combination].append({
-            (parameter_name, parameter_value): subset_df
-        })
-
+        if what_to_tune == "Parameters":
+            Top_offenders_per_run_dict[combination].append({
+                (parameter_name, parameter_value): subset_df
+            })
+        elif what_to_tune == "CFs": 
+            Top_offenders_per_run_dict[combination].append({
+                kind_value: subset_df
+            })
         # Write the subset DataFrame to a sheet
         sheet_name = str(combination)[:31]
 
@@ -548,7 +550,7 @@ def process_top_offenders(generator, top_offenders_table, plan_details_df, y_axi
 
 
 def write_top_offenders(generator, top_offenders_oos, top_offenders_table, y_axis_cols, is_valid_top_offenders, plan_details_df,
-                        time_level, parameter_name, parameter_value, Top_offenders_per_run_dict, output_measure):
+                        time_level, parameter_name, parameter_value, Top_offenders_per_run_dict, output_measure, what_to_tune, kind_value):
     """
     Write the Top Offenders analysis to the Excel sheet.
     """
@@ -559,7 +561,7 @@ def write_top_offenders(generator, top_offenders_oos, top_offenders_table, y_axi
     if is_valid_top_offenders == "Valid":
         print(f'in write_top_offenders -- valid: Top_offenders_per_run_dict = {Top_offenders_per_run_dict}')
         Top_offenders_per_run_dict_updated = process_top_offenders(generator, top_offenders_table, plan_details_df, y_axis_cols, top_offenders_oos, time_level, 
-                                                                   Top_offenders_per_run_dict, parameter_name, parameter_value, output_measure)
+                                                                   Top_offenders_per_run_dict, parameter_name, parameter_value, output_measure, what_to_tune, kind_value)
     else:
         print('in else')
         Top_offenders_per_run_dict_updated = Top_offenders_per_run_dict
@@ -694,6 +696,8 @@ def process_and_export(profile, plan, client, base_url, accuracy_table_id, top_o
             parameter_name,
             parameter_value,
             Top_offenders_per_run_dict,
+            what_to_tune,
+            kind_value,
             file_path
         )
 

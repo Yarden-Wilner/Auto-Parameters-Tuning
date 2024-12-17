@@ -8,7 +8,6 @@
 ################################################################
 
 
-print("New!")
 
 from configuration_handler import ConfigYaml, APIClient
 from odmc_objects import Profile, Plan
