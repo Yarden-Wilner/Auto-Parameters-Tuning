@@ -137,7 +137,7 @@ class ParameterOptimizer:
             logging.info(f'Cartesian')
 
             # Evaluate the current permutation
-            wmape, bias = self.run_process(self.what_to_tune, None, None, None, permutation = permutation, ind = ind, CF_kinds_table_id = None, kind_value = None)
+            wmape, bias, self.Top_offenders_per_run_dict = self.run_process(self.what_to_tune, None, None, None, permutation = permutation, ind = ind, CF_kinds_table_id = None, kind_value = None, Top_offenders_per_run_dict = self.Top_offenders_per_run_dict)
 
             logging.info(f'Current WMAPE: {wmape}, current Bias: {bias} ')
 
@@ -155,8 +155,11 @@ class ParameterOptimizer:
                 print("in wmape < best_wmape")
                 self.best_wmape = wmape
                 self.best_value = permutation
+                self.metrics_dict[(key_0, key_1, key_2)].append('Best')
                 self.updated_bias = bias
                 print(self.best_value)
+            else:
+                self.metrics_dict[(key_0, key_1, key_2)].append('NOT Best')
         else:
             # Tuning mode: Regular
             for value in parameter_values:
@@ -282,14 +285,24 @@ class ParameterOptimizer:
         for combination, data_list in self.Top_offenders_per_run_dict.items():
             combined_df = pd.DataFrame()  # Start with an empty DataFrame
             if self.what_to_tune == "Parameters":
-                for data in data_list:
-                    for (parameter_name, parameter_value), subset_df in data.items():
-                        # Add a suffix to the column names
-                        suffix = f"_{parameter_name}_{parameter_value}"
-                        subset_df_with_suffix = subset_df.add_suffix(suffix)
-                        
-                        # Concatenate the DataFrame with the current combined DataFrame
-                        combined_df = pd.concat([combined_df, subset_df_with_suffix], axis=1)
+                if  self.parameters_tuning_mode == 'Cartesian':
+                    for data in data_list:
+                        for ind_key, subset_df in data.items():
+                            # Add a suffix to the column names
+                            suffix = f"_permutation_{ind_key}"
+                            subset_df_with_suffix = subset_df.add_suffix(suffix)
+                            
+                            # Concatenate the DataFrame with the current combined DataFrame
+                            combined_df = pd.concat([combined_df, subset_df_with_suffix], axis=1)
+                else:
+                    for data in data_list:
+                        for (parameter_name, parameter_value), subset_df in data.items():
+                            # Add a suffix to the column names
+                            suffix = f"_{parameter_name}_{parameter_value}"
+                            subset_df_with_suffix = subset_df.add_suffix(suffix)
+                            
+                            # Concatenate the DataFrame with the current combined DataFrame
+                            combined_df = pd.concat([combined_df, subset_df_with_suffix], axis=1)
 
             elif self.what_to_tune == "CFs":
                 for data in data_list:

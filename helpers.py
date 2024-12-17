@@ -140,7 +140,7 @@ def Export_Accuracy_to_Excel(
     plan_details_df, current_parameters, merged_df, accuracy_df_for_export, grouped_accuracy,
     methods_and_levels_dfs, top_offenders_oos, top_offenders_table, y_axis_cols, 
     is_valid_top_offenders, yoy_df, is_valid_yoy, time_level, input_measure, output_measure,
-    parameter_name, parameter_value, Top_offenders_per_run_dict, what_to_tune, kind_value, file_path):
+    parameter_name, parameter_value, parameters_tuning_mode, ind, Top_offenders_per_run_dict, what_to_tune, kind_value, file_path):
     """
     Main function to generate an Excel report with multiple sheets.
     """
@@ -154,7 +154,7 @@ def Export_Accuracy_to_Excel(
         write_year_over_year(generator, yoy_df, plan_details_df, time_level, input_measure, output_measure)
 
     Top_offenders_per_run_dict_updated = write_top_offenders(generator, top_offenders_oos, top_offenders_table, y_axis_cols, is_valid_top_offenders, plan_details_df,
-                        time_level, parameter_name, parameter_value, Top_offenders_per_run_dict, output_measure, what_to_tune, kind_value)
+                        time_level, parameter_name, parameter_value, parameters_tuning_mode, ind, Top_offenders_per_run_dict, output_measure, what_to_tune, kind_value)
 
     # Save the report
     generator.save()
@@ -462,7 +462,7 @@ def process_combination_chart(generator, subset_df, x_axis_range, y_axis_cols, s
 
 
 def process_top_offenders(generator, top_offenders_table, plan_details_df, y_axis_cols, top_offenders_oos, time_level, Top_offenders_per_run_dict,
-                          parameter_name, parameter_value, output_measure, what_to_tune, kind_value):
+                          parameter_name, parameter_value, parameters_tuning_mode, ind, output_measure, what_to_tune, kind_value):
     """
     Processes and generates charts for each combination in the top offenders table.
 
@@ -524,9 +524,16 @@ def process_top_offenders(generator, top_offenders_table, plan_details_df, y_axi
 
         # Append the dictionary
         if what_to_tune == "Parameters":
-            Top_offenders_per_run_dict[combination].append({
-                (parameter_name, parameter_value): subset_df
+            if  parameters_tuning_mode == 'Cartesian':
+                Top_offenders_per_run_dict[combination].append({
+                ind: subset_df
             })
+
+            else:
+                Top_offenders_per_run_dict[combination].append({
+                    (parameter_name, parameter_value): subset_df
+                })
+
         elif what_to_tune == "CFs": 
             Top_offenders_per_run_dict[combination].append({
                 kind_value: subset_df
@@ -550,7 +557,7 @@ def process_top_offenders(generator, top_offenders_table, plan_details_df, y_axi
 
 
 def write_top_offenders(generator, top_offenders_oos, top_offenders_table, y_axis_cols, is_valid_top_offenders, plan_details_df,
-                        time_level, parameter_name, parameter_value, Top_offenders_per_run_dict, output_measure, what_to_tune, kind_value):
+                        time_level, parameter_name, parameter_value, parameters_tuning_mode, ind, Top_offenders_per_run_dict, output_measure, what_to_tune, kind_value):
     """
     Write the Top Offenders analysis to the Excel sheet.
     """
@@ -561,7 +568,8 @@ def write_top_offenders(generator, top_offenders_oos, top_offenders_table, y_axi
     if is_valid_top_offenders == "Valid":
         print(f'in write_top_offenders -- valid: Top_offenders_per_run_dict = {Top_offenders_per_run_dict}')
         Top_offenders_per_run_dict_updated = process_top_offenders(generator, top_offenders_table, plan_details_df, y_axis_cols, top_offenders_oos, time_level, 
-                                                                   Top_offenders_per_run_dict, parameter_name, parameter_value, output_measure, what_to_tune, kind_value)
+                                                                   Top_offenders_per_run_dict, parameter_name, parameter_value, parameters_tuning_mode, ind,
+                                                                    output_measure, what_to_tune, kind_value)
     else:
         print('in else')
         Top_offenders_per_run_dict_updated = Top_offenders_per_run_dict
@@ -604,7 +612,8 @@ def process_and_export(profile, plan, client, base_url, accuracy_table_id, top_o
                 # Apply permutations for Cartesian tuning
                 for (parameter_id, parameter_name), parameter_value in permutation.items():
                     # Call the function with the key and value
-                    profile.change_parameter(parameter_id, parameter_value)
+                    #profile.change_parameter(parameter_id, parameter_value)
+                    pass
                 logging.info(f'Launched plan: {plan.name}:  permutation Number: {ind} ')
             else:
                 # Apply individual parameter tuning
@@ -695,6 +704,8 @@ def process_and_export(profile, plan, client, base_url, accuracy_table_id, top_o
             plan.output_measure,
             parameter_name,
             parameter_value,
+            parameters_tuning_mode,
+            ind,
             Top_offenders_per_run_dict,
             what_to_tune,
             kind_value,

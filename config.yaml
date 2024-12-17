@@ -58,7 +58,7 @@ parameters by step:
 Tune_by_wmape: "On" #if "On", the best value of each paramter (the one that yields the best WMAPE) will be choosen and used for the next run. if "Off" - values will be reset after each parameter run 
 Base_WMAPE: 15.26
 Base_Bias: -3.36
-Parameters_tuning_mode: "Regular" #options: "Regular" or "Cartesian"
+Parameters_tuning_mode: "Cartesian" #options: "Regular" or "Cartesian"
 
 
 Configure best kind IDs on ODMC: "Off" #could be "On" or "Off"
