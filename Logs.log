@@ -1,44 +1,35 @@
-2024-12-17 11:07:51,129 - INFO - Loaded configuration values:
-2024-12-17 11:07:51,129 - INFO - username: sharon.eliasi@stryker.com
-2024-12-17 11:07:51,130 - INFO - password: Welcome123
-2024-12-17 11:07:51,130 - INFO - servername: fa-euwg-dev3-saasfaprod1.fa.ocs.oraclecloud.com
-2024-12-17 11:07:51,130 - INFO - profile_id: 300000049953003
-2024-12-17 11:07:51,130 - INFO - plan_id: 300000049960080
-2024-12-17 11:07:51,130 - INFO - accuracy_table_id: 300000049953251
-2024-12-17 11:07:51,130 - INFO - top_offenders_table_id: 300000049968289
-2024-12-17 11:07:51,130 - INFO - year_over_year_table_id: 300000050001375
-2024-12-17 11:07:51,130 - INFO - parameters_input: {'FitValidationSensitivity': [1], 'ForecastValidationSensitivity': [4.5]}
-2024-12-17 11:07:51,130 - INFO - number_of_top_offenders: 3
-2024-12-17 11:07:51,130 - INFO - tune_by_wmape: On
-2024-12-17 11:07:51,130 - INFO - base_wmape: 0.1526
-2024-12-17 11:07:51,130 - INFO - base_bias: -0.0336
-2024-12-17 11:07:51,130 - INFO - parameters_tuning_mode: Regular
-2024-12-17 11:07:51,130 - INFO - tune_by_step: Off
-2024-12-17 11:07:51,130 - INFO - CF_kinds_table_id: 300000049968529
-2024-12-17 11:07:51,130 - INFO - kind_values_lst: [1, 2, 800]
-2024-12-17 11:07:51,130 - INFO - Configure_best_kind_IDs_on_ODMC: Off
-2024-12-17 11:07:51,130 - INFO - __________________________________________________________________________________________________________________________________________________
-2024-12-17 11:07:53,727 - INFO - Going CFs Tuning
-2024-12-17 11:07:53,728 - INFO - URL: https://fa-euwg-dev3-saasfaprod1.fa.ocs.oraclecloud.com:443/fscmRestApi/resources/11.13.18.05/supplyChainPlans/300000049960080/child/PlanningTables/300000049968529/child/Data
-2024-12-17 11:08:22,038 - INFO - start post request: uploading kind values to a table
-2024-12-17 11:08:46,952 - INFO - completed post request
-2024-12-17 11:08:46,953 - INFO - Launched plan: TX SYK Dem Plan - JR - Copy3:  kind value: 1 
-2024-12-17 11:08:46,953 - INFO - Run is completed
-2024-12-17 11:10:45,531 - INFO - Exported results to Kind_1_Dec012.xlsx for kind value 1 
-2024-12-17 11:10:45,531 - INFO - Best Wmape for CF kinds tuning so far (kind ID = 1)
-2024-12-17 11:10:45,531 - INFO - old self.best_wmape: 0.1526
-2024-12-17 11:10:45,531 - INFO - current wmape: 0.13197786291450897
-2024-12-17 11:10:45,581 - INFO - URL: https://fa-euwg-dev3-saasfaprod1.fa.ocs.oraclecloud.com:443/fscmRestApi/resources/11.13.18.05/supplyChainPlans/300000049960080/child/PlanningTables/300000049968529/child/Data
-2024-12-17 11:11:11,835 - INFO - start post request: uploading kind values to a table
-2024-12-17 11:11:39,505 - INFO - completed post request
-2024-12-17 11:11:39,505 - INFO - Launched plan: TX SYK Dem Plan - JR - Copy3:  kind value: 2 
-2024-12-17 11:11:39,505 - INFO - Run is completed
-2024-12-17 11:13:36,083 - INFO - Exported results to Kind_2_Dec012.xlsx for kind value 2 
-2024-12-17 11:13:36,133 - INFO - URL: https://fa-euwg-dev3-saasfaprod1.fa.ocs.oraclecloud.com:443/fscmRestApi/resources/11.13.18.05/supplyChainPlans/300000049960080/child/PlanningTables/300000049968529/child/Data
-2024-12-17 11:14:00,891 - INFO - start post request: uploading kind values to a table
-2024-12-17 11:14:26,982 - INFO - completed post request
-2024-12-17 11:14:26,982 - INFO - Launched plan: TX SYK Dem Plan - JR - Copy3:  kind value: 800 
-2024-12-17 11:14:26,982 - INFO - Run is completed
-2024-12-17 11:16:25,215 - INFO - Exported results to Kind_800_Dec012.xlsx for kind value 800 
-2024-12-17 11:16:25,217 - INFO - self.best_value: 1
-2024-12-17 11:16:25,224 - INFO - In final report. what_to_tune = CFs
+2024-12-17 11:58:20,363 - INFO - Loaded configuration values:
+2024-12-17 11:58:20,364 - INFO - username: sharon.eliasi@stryker.com
+2024-12-17 11:58:20,364 - INFO - password: Welcome123
+2024-12-17 11:58:20,364 - INFO - servername: fa-euwg-dev3-saasfaprod1.fa.ocs.oraclecloud.com
+2024-12-17 11:58:20,364 - INFO - profile_id: 300000049953003
+2024-12-17 11:58:20,364 - INFO - plan_id: 300000049960080
+2024-12-17 11:58:20,365 - INFO - accuracy_table_id: 300000049953251
+2024-12-17 11:58:20,365 - INFO - top_offenders_table_id: 300000049968289
+2024-12-17 11:58:20,365 - INFO - year_over_year_table_id: 300000050001375
+2024-12-17 11:58:20,365 - INFO - parameters_input: {'FitValidationSensitivity': [1], 'ForecastValidationSensitivity': [4.5]}
+2024-12-17 11:58:20,365 - INFO - number_of_top_offenders: 3
+2024-12-17 11:58:20,365 - INFO - tune_by_wmape: On
+2024-12-17 11:58:20,365 - INFO - base_wmape: 0.1526
+2024-12-17 11:58:20,365 - INFO - base_bias: -0.0336
+2024-12-17 11:58:20,365 - INFO - parameters_tuning_mode: Cartesian
+2024-12-17 11:58:20,365 - INFO - tune_by_step: Off
+2024-12-17 11:58:20,365 - INFO - CF_kinds_table_id: 300000049968529
+2024-12-17 11:58:20,365 - INFO - kind_values_lst: [1, 2, 800]
+2024-12-17 11:58:20,365 - INFO - Configure_best_kind_IDs_on_ODMC: Off
+2024-12-17 11:58:20,365 - INFO - __________________________________________________________________________________________________________________________________________________
+2024-12-17 11:58:22,992 - INFO - Going Parameters Tuning
+2024-12-17 11:58:22,992 - INFO - Cartesian Mode:
+2024-12-17 11:58:22,992 - INFO - All permutations to tune: 
+2024-12-17 11:58:22,992 - INFO - [{(300000049953018, 'FitValidationSensitivity'): 1, (300000049953006, 'ForecastValidationSensitivity'): 4.5}]
+2024-12-17 11:58:22,992 - INFO - __________________________________________________________________________________________________________________________________________________
+2024-12-17 11:58:22,992 - INFO - Premutation number 1: {(300000049953018, 'FitValidationSensitivity'): 1, (300000049953006, 'ForecastValidationSensitivity'): 4.5}
+2024-12-17 11:58:22,992 - INFO - Cartesian
+2024-12-17 11:58:22,992 - INFO - Launched plan: TX SYK Dem Plan - JR - Copy3:  permutation Number: 1 
+2024-12-17 11:58:22,993 - INFO - Run is completed
+2024-12-17 12:00:19,433 - INFO - Exported results to Permutation_1_Dec012.xlsx for parameter ForecastValidationSensitivity = 4.5 
+2024-12-17 12:00:19,434 - INFO - Current WMAPE: 0.13197786291450897, current Bias: -0.0565708245097057 
+2024-12-17 12:00:19,434 - INFO - Best Wmape so far
+2024-12-17 12:00:19,435 - INFO - Configuring best permutation values in the profile: FitValidationSensitivity: value: 1 
+2024-12-17 12:00:20,752 - INFO - Configuring best permutation values in the profile: ForecastValidationSensitivity: value: 4.5 
+2024-12-17 12:00:24,194 - INFO - In final report. what_to_tune = Parameters
