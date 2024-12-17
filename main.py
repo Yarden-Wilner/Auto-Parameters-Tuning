@@ -3,10 +3,12 @@
 #   1. Read config parameters
 #   2. Initialize class instance: client, profile plan, optimizer
 #   3. start process by calling optimizer.functions_navigator()
-#Last Update: 16-Dec-2024
+#Last Update: 17-Dec-2024
 #Environment: Stryker Dev3
 ################################################################
 
+
+print("New!")
 
 from configuration_handler import ConfigYaml, APIClient
 from odmc_objects import Profile, Plan
