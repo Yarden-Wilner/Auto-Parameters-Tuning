@@ -295,7 +295,7 @@ class ParameterOptimizer:
                 for data in data_list:
                     for kind_id_key, subset_df in data.items():
                         # Add a suffix to the column names
-                        suffix = f"Kind s{kind_id_key}"
+                        suffix = f"_Kind_{kind_id_key}"
                         subset_df_with_suffix = subset_df.add_suffix(suffix)
                         
                         # Concatenate the DataFrame with the current combined DataFrame
@@ -326,6 +326,8 @@ class ParameterOptimizer:
 
             # Step 3: Rename columns for duplicates to clean prefixes
             df_cleaned.columns = [col.split('_')[0] if not col.startswith(self.plan.output_measure) else col for col in df_cleaned.columns]
+
+            df_cleaned.to_csv('df_cleaned.csv')
 
             # Move "OOS" and "End of History" to the last two positions
             columns = [col for col in df_cleaned.columns if col not in ["End of History", "OOS"]]
