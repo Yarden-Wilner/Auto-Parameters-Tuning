@@ -108,10 +108,27 @@ if __name__ == "__main__":
     plan = Plan(client, base_url, plan_id, profile.name,profile.profile_id, max_duration=2000)
 
     #Optimizer setup
-    #optimizer = ParameterOptimizer(client, profile, plan, base_url, accuracy_table_id, top_offenders_table_id, year_over_year_table_id, number_of_top_offenders, tune_by_wmape, base_wmape, base_bias, parameters_tuning_mode,what_to_tune = "CFs",CF_kinds_table_id = CF_kinds_table_id, kind_values_lst = kind_values_lst, Configure_best_kind_IDs_on_ODMC = Configure_best_kind_IDs_on_ODMC )
-    #Start process
-    #optimizer.functions_navigator()
+    if run_mode == "CFs":
+        optimizer = ParameterOptimizer(client, profile, plan, base_url, accuracy_table_id, top_offenders_table_id, year_over_year_table_id, number_of_top_offenders, tune_by_wmape, base_wmape, base_bias, parameters_tuning_mode,what_to_tune = "CFs",CF_kinds_table_id = CF_kinds_table_id, kind_values_lst = kind_values_lst, Configure_best_kind_IDs_on_ODMC = Configure_best_kind_IDs_on_ODMC )
+        #Start process
+        optimizer.functions_navigator()
+    elif run_mode == "Parameters":
+        optimizer = ParameterOptimizer(client, profile, plan, base_url, accuracy_table_id, top_offenders_table_id, year_over_year_table_id, number_of_top_offenders, tune_by_wmape, base_wmape, base_bias, parameters_tuning_mode,what_to_tune = "Parameters",CF_kinds_table_id = CF_kinds_table_id, kind_values_lst = kind_values_lst, Configure_best_kind_IDs_on_ODMC = Configure_best_kind_IDs_on_ODMC)
+        #Start process
+        optimizer.functions_navigator()
+    elif run_mode == "Parameters then CFs":
+        for mode in ["Parameters", "CFs"]:
+            optimizer = ParameterOptimizer(client, profile, plan, base_url, accuracy_table_id, top_offenders_table_id, year_over_year_table_id, number_of_top_offenders, tune_by_wmape, base_wmape, base_bias, parameters_tuning_mode,what_to_tune = mode,CF_kinds_table_id = CF_kinds_table_id, kind_values_lst = kind_values_lst, Configure_best_kind_IDs_on_ODMC = Configure_best_kind_IDs_on_ODMC)
+            #Start process
+            optimizer.functions_navigator()
+           
+    elif run_mode == "CFs then Parameters":
+        for mode in ["CFs", "Parameters"]:
+            optimizer = ParameterOptimizer(client, profile, plan, base_url, accuracy_table_id, top_offenders_table_id, year_over_year_table_id, number_of_top_offenders, tune_by_wmape, base_wmape, base_bias, parameters_tuning_mode,what_to_tune = mode,CF_kinds_table_id = CF_kinds_table_id, kind_values_lst = kind_values_lst, Configure_best_kind_IDs_on_ODMC = Configure_best_kind_IDs_on_ODMC)
+            #Start process
+            optimizer.functions_navigator()
 
-    optimizer = ParameterOptimizer(client, profile, plan, base_url, accuracy_table_id, top_offenders_table_id, year_over_year_table_id, number_of_top_offenders, tune_by_wmape, base_wmape, base_bias, parameters_tuning_mode,what_to_tune = "Parameters",CF_kinds_table_id = CF_kinds_table_id, kind_values_lst = kind_values_lst, Configure_best_kind_IDs_on_ODMC = Configure_best_kind_IDs_on_ODMC)
-
-    optimizer.functions_navigator()
+    elif run_mode == "Dummy":
+        optimizer = ParameterOptimizer(client, profile, plan, base_url, accuracy_table_id, top_offenders_table_id, year_over_year_table_id, number_of_top_offenders, tune_by_wmape, base_wmape, base_bias, parameters_tuning_mode,what_to_tune = "Dummy",CF_kinds_table_id = CF_kinds_table_id, kind_values_lst = kind_values_lst, Configure_best_kind_IDs_on_ODMC = Configure_best_kind_IDs_on_ODMC)
+        #Start process
+        optimizer.functions_navigator()

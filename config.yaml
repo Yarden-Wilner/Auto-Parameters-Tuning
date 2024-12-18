@@ -62,4 +62,4 @@ Parameters_tuning_mode: "Regular" #options: "Regular" or "Cartesian"
 
 
 Configure best kind IDs on ODMC: "Off" #could be "On" or "Off"
-run_mode: "Dummy" #"Dummy" / "Parameters" / "CFs" / 'Parameters then CFs" / "CFs then Parameters"
+run_mode: "Dummy" #"Dummy" / "Parameters" / "CFs" / "Parameters then CFs" / "CFs then Parameters"

@@ -540,8 +540,6 @@ def process_top_offenders(generator, top_offenders_table, plan_details_df, y_axi
             })
         # Write the subset DataFrame to a sheet
         sheet_name = str(combination)[:31]
-
-        subset_df.to_csv(f'{sheet_name}.csv')
         
 
         generator.write_dataframe(subset_df, sheet_name, bold_text=f"Combination: {combination}")

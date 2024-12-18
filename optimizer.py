@@ -235,7 +235,6 @@ class ParameterOptimizer:
                 ]
             )
   
-        self.all_parameters_results.to_csv("all_parameters_results.csv", index=False)
 
 
     def create_best_values_df(self):
@@ -340,7 +339,6 @@ class ParameterOptimizer:
             # Step 3: Rename columns for duplicates to clean prefixes
             df_cleaned.columns = [col.split('_')[0] if not col.startswith(self.plan.output_measure) else col for col in df_cleaned.columns]
 
-            df_cleaned.to_csv('df_cleaned.csv')
 
             # Move "OOS" and "End of History" to the last two positions
             columns = [col for col in df_cleaned.columns if col not in ["End of History", "OOS"]]
