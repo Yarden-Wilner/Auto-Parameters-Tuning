@@ -612,13 +612,12 @@ def process_and_export(profile, plan, client, base_url, accuracy_table_id, top_o
                 # Apply permutations for Cartesian tuning
                 for (parameter_id, parameter_name), parameter_value in permutation.items():
                     # Call the function with the key and value
-                    #profile.change_parameter(parameter_id, parameter_value)
-                    pass
+                    profile.change_parameter(parameter_id, parameter_value)
                 logging.info(f'Launched plan: {plan.name}:  permutation Number: {ind} ')
             else:
                 # Apply individual parameter tuning
                 # Call the function with the key and value
-                #profile.change_parameter(parameter_id, parameter_value)
+                profile.change_parameter(parameter_id, parameter_value)
                 logging.info(f'Launched plan: {plan.name}:  {parameter_name} value: {parameter_value} ')
                 pass
 
@@ -630,7 +629,7 @@ def process_and_export(profile, plan, client, base_url, accuracy_table_id, top_o
             
 
         # Launch and monitor the plan
-        #launch_response = plan.launch()
+        launch_response = plan.launch()
         logging.info(f'Run is completed')
 
 

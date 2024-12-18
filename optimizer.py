@@ -389,12 +389,12 @@ class ParameterOptimizer:
                     logging.info(f'No permutation improved the base WMAPE. initializing the profile to have initial parameters values: {parameter_name} ')
                     original_parameter_value = self.profile.initial_parameters.loc[self.profile.initial_parameters['ForecastingParameterName'] == parameter_name, 'ForecastingParameterValue'].values
                     original_parameter_value_int = float(original_parameter_value[0])
-                    self.profile.change_parameter(parameter_id, original_parameter_value_int)  # Update the profile
+                    #self.profile.change_parameter(parameter_id, original_parameter_value_int)  # Update the profile
 
                 else:
                     # Configure the profile with the best permutation values
                     logging.info(f'Configuring best permutation values in the profile: {parameter_name}: value: {parameter_value} ')
-                    self.profile.change_parameter(parameter_id, parameter_value)
+                    #self.profile.change_parameter(parameter_id, parameter_value)
 
         else:
              # Regular tuning mode: iterate through each parameter and its possible values
@@ -413,7 +413,7 @@ class ParameterOptimizer:
                     logging.info(f'Initializing the profile to have initial parameters values: {parameter_name} ')
                     original_parameter_value = self.profile.initial_parameters.loc[self.profile.initial_parameters['ForecastingParameterName'] == parameter_name, 'ForecastingParameterValue'].values
                     original_parameter_value_int = float(original_parameter_value[0])
-                    #self.profile.change_parameter(parameter_id, original_parameter_value_int)  # Update the profile
+                    self.profile.change_parameter(parameter_id, original_parameter_value_int)  # Update the profile
                     self.best_values_dict_params[parameter_name] = [original_parameter_value, best_wmape]
                     logging.info(f'best_value is: {original_parameter_value}')
                     print(f"Updated {parameter_name} to the initial value:{original_parameter_value_int} as no other tested value had better WMAPE")
@@ -423,7 +423,7 @@ class ParameterOptimizer:
                     logging.info(f'best_value is: {best_value}')
                     # Update the profile with the best value found
                     logging.info(f'Configuring best value in the profile: {parameter_name}: value: {best_value} ')
-                    #self.profile.change_parameter(parameter_id, best_value)  # Update the profile
+                    self.profile.change_parameter(parameter_id, best_value)  # Update the profile
                     print(f"Updated {parameter_name} to {best_value} with WMAPE: {best_wmape}")
 
 

@@ -13,7 +13,7 @@ top_offenders_table_id: "300000049968289"
 year_over_year_table_id: "300000050001375" #@TX Y - Yoy
 CF_kinds_table_id: "300000049968529" #@TX Y - Kinds
 #Other Parameters
-Number_of_top_offenders: 3 #enter the number of top offenders to find
+Number_of_top_offenders: 10 #enter the number of top offenders to find
 
 
 Kind Values:
@@ -28,22 +28,22 @@ parameters:
   FitValidationSensitivity:
   #  - 0.5
     - 1
-  #  - 1.7
+    - 1.7
   #  - 2
   ForecastValidationSensitivity:
   #  - 3.5
     - 4.5
-  #  - 5
-  #OutlierSensitivity:
-   # - 1
+    - 5
+  OutlierSensitivity:
+    - 1
    # - 2
-   # - 3
-  #OutliersPercent:
+    - 3
+  OutliersPercent:
     # 20
-  #  - 5
+    - 5
     # 10
-  #EnableNonNegRegr:
-  #  - 1
+  EnableNonNegRegr:
+    - 1
   
 parameters by step:
   - name: OutlierSensitivity
@@ -58,7 +58,8 @@ parameters by step:
 Tune_by_wmape: "On" #if "On", the best value of each paramter (the one that yields the best WMAPE) will be choosen and used for the next run. if "Off" - values will be reset after each parameter run 
 Base_WMAPE: 15.26
 Base_Bias: -3.36
-Parameters_tuning_mode: "Cartesian" #options: "Regular" or "Cartesian"
+Parameters_tuning_mode: "Regular" #options: "Regular" or "Cartesian"
 
 
 Configure best kind IDs on ODMC: "Off" #could be "On" or "Off"
+run_mode: "Dummy" #"Dummy" / "Parameters" / "CFs" / 'Parameters then CFs" / "CFs then Parameters"

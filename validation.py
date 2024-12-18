@@ -228,3 +228,9 @@ def validate_parameters_tuning_mode(parameters_tuning_mode):
         logging.error(f"Invalid value for Parameters_tuning_mode: {parameters_tuning_mode}")
         raise ValueError("Parameters_tuning_mode must be 'Regular' or 'Cartesian'")
     
+
+def validate_run_mode(run_mode):
+     if run_mode not in ["Dummy", "Parameters", "CFs", "Parameters then CFs", "CFs then Parameters"]:
+        logging.error(f"Invalid value for run_mod: {run_mode}")
+        raise ValueError("Parameters_tuning_mode must be 'Regular' or 'Cartesian'")
+    

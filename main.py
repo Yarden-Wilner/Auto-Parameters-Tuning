@@ -12,7 +12,7 @@
 from configuration_handler import ConfigYaml, APIClient
 from odmc_objects import Profile, Plan
 from optimizer import ParameterOptimizer
-from validation import validate_parameter_values, get_valid_float, transform_parameters, validate_tune_by_wmape, validate_number_of_top_offenders, validate_parameters_tuning_mode, validate_tune_by_step
+from validation import validate_parameter_values, get_valid_float, transform_parameters, validate_tune_by_wmape, validate_number_of_top_offenders, validate_parameters_tuning_mode, validate_tune_by_step, validate_run_mode
 import logging
 
 
@@ -34,6 +34,7 @@ if __name__ == "__main__":
     CF_kinds_table_id =config_loader.get("CF_kinds_table_id")
     kind_values_lst = config_loader.get("Kind Values")
     Configure_best_kind_IDs_on_ODMC = config_loader.get("Configure best kind IDs on ODMC")
+    run_mode = config_loader.get("run_mode") #"Dummy" / "Parameters" / "CFs" / 'Parameters then CFs" / "CFs then Parameters"
 
 
 
@@ -60,6 +61,9 @@ if __name__ == "__main__":
     parameters_tuning_mode = config_loader.get("Parameters_tuning_mode")
     validate_parameters_tuning_mode(parameters_tuning_mode)
 
+    # Validate and handle `parameters_tuning_mode`
+    run_mode = config_loader.get("run_mode") #Options: "Dummy" / "Parameters" / "CFs" / 'Parameters then CFs" / "CFs then Parameters"
+    validate_run_mode(run_mode)
 
     # Dictionary of variable names and their values
     config_values = {
