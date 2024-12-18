@@ -18,8 +18,7 @@ libraries = [
     "pandas",
     "requests",
     "numpy",
-    "yaml",
-    "pytest"
+    "yaml"
 ]
 
 # Ensure libraries are installed
