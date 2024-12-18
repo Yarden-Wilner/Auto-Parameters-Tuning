@@ -468,9 +468,6 @@ class Top_Offenders_Table(Table):
 
 
         table_data_str = top_offenders_json['items'][0]['TableData']
-        # Specify column names
-        columns = ['Item', 'Location', 'Date', 'History', 'Forecast']
-
 
         # Convert string to DataFrame
         self.top_offenders_for_export = pd.read_csv(StringIO(table_data_str), header=None, names=headers_lst, parse_dates=[self.time_level] )   ##########

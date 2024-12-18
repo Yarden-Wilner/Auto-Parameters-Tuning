@@ -13,7 +13,7 @@ top_offenders_table_id: "300000049968289"
 year_over_year_table_id: "300000050001375" #@TX Y - Yoy
 CF_kinds_table_id: "300000049968529" #@TX Y - Kinds
 #Other Parameters
-Number_of_top_offenders: 10 #enter the number of top offenders to find
+Number_of_top_offenders: 3 #enter the number of top offenders to find
 
 
 Kind Values:
@@ -27,23 +27,23 @@ Tune_by_step: "Off"
 parameters:
   FitValidationSensitivity:
   #  - 0.5
-    - 1
+  #  - 1
     - 1.7
   #  - 2
-  ForecastValidationSensitivity:
+  #ForecastValidationSensitivity:
   #  - 3.5
-    - 4.5
-    - 5
-  OutlierSensitivity:
-    - 1
-   # - 2
-    - 3
-  OutliersPercent:
+  #  - 4.5
+  #  - 5
+  #OutlierSensitivity:
+  #  - 1
+  # - 2
+  #  - 3
+  #OutliersPercent:
     # 20
-    - 5
+  #  - 5
     # 10
-  EnableNonNegRegr:
-    - 1
+  #EnableNonNegRegr:
+  #  - 1
   
 parameters by step:
   - name: OutlierSensitivity
