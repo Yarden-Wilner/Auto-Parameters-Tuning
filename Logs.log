@@ -1,107 +1,21 @@
-2024-12-18 09:35:58,276 - INFO - Loaded configuration values:
-2024-12-18 09:35:58,276 - INFO - username: sharon.eliasi@stryker.com
-2024-12-18 09:35:58,276 - INFO - password: Welcome123
-2024-12-18 09:35:58,277 - INFO - servername: fa-euwg-dev3-saasfaprod1.fa.ocs.oraclecloud.com
-2024-12-18 09:35:58,277 - INFO - profile_id: 300000049953003
-2024-12-18 09:35:58,277 - INFO - plan_id: 300000049960080
-2024-12-18 09:35:58,277 - INFO - accuracy_table_id: 300000049953251
-2024-12-18 09:35:58,277 - INFO - top_offenders_table_id: 300000049968289
-2024-12-18 09:35:58,277 - INFO - year_over_year_table_id: 300000050001375
-2024-12-18 09:35:58,277 - INFO - parameters_input: {'FitValidationSensitivity': [1, 1.7], 'ForecastValidationSensitivity': [4.5, 5], 'OutlierSensitivity': [1, 3], 'OutliersPercent': [5], 'EnableNonNegRegr': [1]}
-2024-12-18 09:35:58,277 - INFO - number_of_top_offenders: 10
-2024-12-18 09:35:58,277 - INFO - tune_by_wmape: On
-2024-12-18 09:35:58,277 - INFO - base_wmape: 0.1526
-2024-12-18 09:35:58,277 - INFO - base_bias: -0.0336
-2024-12-18 09:35:58,277 - INFO - parameters_tuning_mode: Regular
-2024-12-18 09:35:58,277 - INFO - tune_by_step: Off
-2024-12-18 09:35:58,277 - INFO - CF_kinds_table_id: 300000049968529
-2024-12-18 09:35:58,277 - INFO - kind_values_lst: [1, 2, 800]
-2024-12-18 09:35:58,277 - INFO - Configure_best_kind_IDs_on_ODMC: Off
-2024-12-18 09:35:58,277 - INFO - __________________________________________________________________________________________________________________________________________________
-2024-12-18 09:36:00,963 - INFO - Going Parameters Tuning
-2024-12-18 09:36:00,964 - INFO - In Regular
-2024-12-18 09:36:04,324 - INFO - Launched plan: TX SYK Dem Plan - JR - Copy3:  FitValidationSensitivity value: 1 
-2024-12-18 09:38:08,054 - INFO - Current status of the plan run: 1 (Running).
-2024-12-18 09:40:10,383 - INFO - Current status of the plan run: 1 (Running).
-2024-12-18 09:42:12,536 - INFO - Current status of the plan run: 1 (Running).
-2024-12-18 09:44:14,620 - INFO - Run is completed
-2024-12-18 09:46:16,614 - INFO - Exported results to FitValidationSensitivity_1_Dec012.xlsx for parameter FitValidationSensitivity = 1 
-2024-12-18 09:46:16,720 - INFO - Current WMAPE: 0.1102916029004833, current Bias: -0.08710431859715548 
-2024-12-18 09:46:16,720 - INFO - Best Wmape for FitValidationSensitivity so far
-2024-12-18 09:46:16,720 - INFO - self.best_wmape: 0.1526
-2024-12-18 09:46:16,720 - INFO - current wmape: 0.1102916029004833
-2024-12-18 09:46:16,720 - INFO - In Regular
-2024-12-18 09:46:19,960 - INFO - Launched plan: TX SYK Dem Plan - JR - Copy3:  FitValidationSensitivity value: 1.7 
-2024-12-18 09:48:23,193 - INFO - Current status of the plan run: 1 (Running).
-2024-12-18 09:50:25,117 - INFO - Current status of the plan run: 1 (Running).
-2024-12-18 09:52:27,176 - INFO - Current status of the plan run: 1 (Running).
-2024-12-18 09:54:29,100 - INFO - Run is completed
-2024-12-18 09:56:32,859 - INFO - Exported results to FitValidationSensitivity_1.7_Dec012.xlsx for parameter FitValidationSensitivity = 1.7 
-2024-12-18 09:56:33,095 - INFO - Current WMAPE: 0.11063533573543281, current Bias: -0.08744805143210499 
-2024-12-18 09:56:33,095 - INFO - best_value is: 1, self.best_value is: 1 
-2024-12-18 09:56:33,096 - INFO - best_value is: 1
-2024-12-18 09:56:33,096 - INFO - Configuring best value in the profile: FitValidationSensitivity: value: 1 
-2024-12-18 09:56:36,646 - INFO - In Regular
-2024-12-18 09:56:39,986 - INFO - Launched plan: TX SYK Dem Plan - JR - Copy3:  ForecastValidationSensitivity value: 4.5 
-2024-12-18 09:58:43,811 - INFO - Current status of the plan run: 1 (Running).
-2024-12-18 10:00:45,856 - INFO - Current status of the plan run: 1 (Running).
-2024-12-18 10:02:47,788 - INFO - Current status of the plan run: 1 (Running).
-2024-12-18 10:04:49,687 - INFO - Run is completed
-2024-12-18 10:06:52,905 - INFO - Exported results to ForecastValidationSensitivity_4.5_Dec012.xlsx for parameter ForecastValidationSensitivity = 4.5 
-2024-12-18 10:06:53,170 - INFO - Current WMAPE: 0.12043776708386736, current Bias: -0.10082599518428571 
-2024-12-18 10:06:53,170 - INFO - In Regular
-2024-12-18 10:06:56,687 - INFO - Launched plan: TX SYK Dem Plan - JR - Copy3:  ForecastValidationSensitivity value: 5 
-2024-12-18 10:08:59,699 - INFO - Current status of the plan run: 1 (Running).
-2024-12-18 10:11:01,649 - INFO - Current status of the plan run: 1 (Running).
-2024-12-18 10:13:03,567 - INFO - Current status of the plan run: 1 (Running).
-2024-12-18 10:15:05,686 - INFO - Run is completed
-2024-12-18 10:17:14,088 - INFO - Exported results to ForecastValidationSensitivity_5_Dec012.xlsx for parameter ForecastValidationSensitivity = 5 
-2024-12-18 10:17:14,499 - INFO - Current WMAPE: 0.12218838632116047, current Bias: -0.10278216320227727 
-2024-12-18 10:17:14,499 - INFO - best_value is: None, self.best_value is: None 
-2024-12-18 10:17:14,500 - INFO - Initializing the profile to have initial parameters values: ForecastValidationSensitivity 
-2024-12-18 10:17:17,667 - INFO - best_value is: ['3.5']
-2024-12-18 10:17:17,667 - INFO - In Regular
-2024-12-18 10:17:21,541 - INFO - Launched plan: TX SYK Dem Plan - JR - Copy3:  OutlierSensitivity value: 1 
-2024-12-18 10:19:24,521 - INFO - Current status of the plan run: 1 (Running).
-2024-12-18 10:21:26,585 - INFO - Current status of the plan run: 1 (Running).
-2024-12-18 10:23:28,653 - INFO - Current status of the plan run: 1 (Running).
-2024-12-18 10:25:30,573 - INFO - Run is completed
-2024-12-18 10:27:40,018 - INFO - Exported results to OutlierSensitivity_1_Dec012.xlsx for parameter OutlierSensitivity = 1 
-2024-12-18 10:27:40,365 - INFO - Current WMAPE: 0.10861439394201106, current Bias: -0.07888754927125184 
-2024-12-18 10:27:40,365 - INFO - Best Wmape for OutlierSensitivity so far
-2024-12-18 10:27:40,365 - INFO - self.best_wmape: 0.1102916029004833
-2024-12-18 10:27:40,365 - INFO - current wmape: 0.10861439394201106
-2024-12-18 10:27:40,365 - INFO - In Regular
-2024-12-18 10:27:44,018 - INFO - Launched plan: TX SYK Dem Plan - JR - Copy3:  OutlierSensitivity value: 3 
-2024-12-18 10:29:47,296 - INFO - Current status of the plan run: 1 (Running).
-2024-12-18 10:31:49,416 - INFO - Current status of the plan run: 1 (Running).
-2024-12-18 10:33:51,417 - INFO - Current status of the plan run: 1 (Running).
-2024-12-18 10:35:53,404 - INFO - Run is completed
-2024-12-18 10:37:59,673 - INFO - Exported results to OutlierSensitivity_3_Dec012.xlsx for parameter OutlierSensitivity = 3 
-2024-12-18 10:38:00,183 - INFO - Current WMAPE: 0.1092396767874971, current Bias: -0.08628557807571795 
-2024-12-18 10:38:00,183 - INFO - best_value is: 1, self.best_value is: 1 
-2024-12-18 10:38:00,183 - INFO - best_value is: 1
-2024-12-18 10:38:00,183 - INFO - Configuring best value in the profile: OutlierSensitivity: value: 1 
-2024-12-18 10:38:03,485 - INFO - In Regular
-2024-12-18 10:38:07,056 - INFO - Launched plan: TX SYK Dem Plan - JR - Copy3:  OutliersPercent value: 5 
-2024-12-18 10:40:09,943 - INFO - Current status of the plan run: 1 (Running).
-2024-12-18 10:42:11,823 - INFO - Current status of the plan run: 1 (Running).
-2024-12-18 10:44:13,689 - INFO - Current status of the plan run: 1 (Running).
-2024-12-18 10:46:15,507 - INFO - Run is completed
-2024-12-18 10:48:26,286 - INFO - Exported results to OutliersPercent_5_Dec012.xlsx for parameter OutliersPercent = 5 
-2024-12-18 10:48:26,886 - INFO - Current WMAPE: 0.10847620988776001, current Bias: -0.08195868987698164 
-2024-12-18 10:48:26,886 - INFO - Best Wmape for OutliersPercent so far
-2024-12-18 10:48:26,886 - INFO - self.best_wmape: 0.10861439394201106
-2024-12-18 10:48:26,886 - INFO - current wmape: 0.10847620988776001
-2024-12-18 10:48:26,886 - INFO - best_value is: 5, self.best_value is: 5 
-2024-12-18 10:48:26,886 - INFO - best_value is: 5
-2024-12-18 10:48:26,886 - INFO - Configuring best value in the profile: OutliersPercent: value: 5 
-2024-12-18 10:48:28,256 - INFO - In Regular
-2024-12-18 10:48:30,032 - INFO - Launched plan: TX SYK Dem Plan - JR - Copy3:  EnableNonNegRegr value: 1 
-2024-12-18 10:50:33,176 - INFO - Run is completed
-2024-12-18 10:52:39,220 - INFO - Exported results to EnableNonNegRegr_1_Dec012.xlsx for parameter EnableNonNegRegr = 1 
-2024-12-18 10:52:39,789 - INFO - Current WMAPE: 0.10847620988776001, current Bias: -0.08195868987698164 
-2024-12-18 10:52:39,789 - INFO - best_value is: None, self.best_value is: None 
-2024-12-18 10:52:39,789 - INFO - Initializing the profile to have initial parameters values: EnableNonNegRegr 
-2024-12-18 10:52:41,165 - INFO - best_value is: ['1']
-2024-12-18 10:52:41,168 - INFO - In final report. what_to_tune = Parameters
+2024-12-18 16:06:25,649 - INFO - Loaded configuration values:
+2024-12-18 16:06:25,650 - INFO - username: sharon.eliasi@stryker.com
+2024-12-18 16:06:25,650 - INFO - password: Welcome123
+2024-12-18 16:06:25,650 - INFO - servername: fa-euwg-dev3-saasfaprod1.fa.ocs.oraclecloud.com
+2024-12-18 16:06:25,650 - INFO - profile_id: 300000049953003
+2024-12-18 16:06:25,650 - INFO - plan_id: 300000049960080
+2024-12-18 16:06:25,650 - INFO - accuracy_table_id: 300000049953251
+2024-12-18 16:06:25,650 - INFO - top_offenders_table_id: 300000049968289
+2024-12-18 16:06:25,650 - INFO - year_over_year_table_id: 300000050001375
+2024-12-18 16:06:25,650 - INFO - parameters_input: {'FitValidationSensitivity': [1.7]}
+2024-12-18 16:06:25,650 - INFO - number_of_top_offenders: 3
+2024-12-18 16:06:25,650 - INFO - tune_by_wmape: On
+2024-12-18 16:06:25,650 - INFO - base_wmape: 0.1526
+2024-12-18 16:06:25,650 - INFO - base_bias: -0.0336
+2024-12-18 16:06:25,650 - INFO - parameters_tuning_mode: Regular
+2024-12-18 16:06:25,650 - INFO - tune_by_step: Off
+2024-12-18 16:06:25,650 - INFO - CF_kinds_table_id: 300000049968529
+2024-12-18 16:06:25,650 - INFO - kind_values_lst: [1, 2, 800]
+2024-12-18 16:06:25,650 - INFO - Configure_best_kind_IDs_on_ODMC: Off
+2024-12-18 16:06:25,650 - INFO - run_mode: Dummy
+2024-12-18 16:06:25,650 - INFO - __________________________________________________________________________________________________________________________________________________

@@ -7,14 +7,26 @@
 #Environment: Stryker Dev3
 ################################################################
 
-
-
+from library_manager import import_or_install
 from configuration_handler import ConfigYaml, APIClient
 from odmc_objects import Profile, Plan
 from optimizer import ParameterOptimizer
 from validation import validate_parameter_values, get_valid_float, transform_parameters, validate_tune_by_wmape, validate_number_of_top_offenders, validate_parameters_tuning_mode, validate_tune_by_step, validate_run_mode
-import logging
 
+# Define the libraries needed for this script
+libraries = [
+    "pandas",
+    "requests",
+    "numpy",
+    "yaml",
+    "pytest"
+]
+
+# Ensure libraries are installed
+import_or_install(libraries)
+
+import logging
+import sys
 
 
 if __name__ == "__main__":
@@ -84,7 +96,8 @@ if __name__ == "__main__":
         "tune_by_step": tune_by_step, 
         "CF_kinds_table_id": CF_kinds_table_id,
         "kind_values_lst": kind_values_lst,
-        "Configure_best_kind_IDs_on_ODMC": Configure_best_kind_IDs_on_ODMC
+        "Configure_best_kind_IDs_on_ODMC": Configure_best_kind_IDs_on_ODMC,
+        "run_mode": run_mode
     }
 
     # Log each configuration value
@@ -94,6 +107,7 @@ if __name__ == "__main__":
     
     logging.info("__________________________________________________________________________________________________________________________________________________")
 
+    sys.exit(1)
 
     #basic url setup
     base_url = f"https://{servername}:443/fscmRestApi/resources/11.13.18.05"
@@ -132,3 +146,4 @@ if __name__ == "__main__":
         optimizer = ParameterOptimizer(client, profile, plan, base_url, accuracy_table_id, top_offenders_table_id, year_over_year_table_id, number_of_top_offenders, tune_by_wmape, base_wmape, base_bias, parameters_tuning_mode,what_to_tune = "Dummy",CF_kinds_table_id = CF_kinds_table_id, kind_values_lst = kind_values_lst, Configure_best_kind_IDs_on_ODMC = Configure_best_kind_IDs_on_ODMC)
         #Start process
         optimizer.functions_navigator()
+

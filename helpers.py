@@ -57,7 +57,7 @@ class ExcelReportGenerator:
         worksheet = self.writer.sheets[sheet_name]
         worksheet.set_column(columns, width)
 
-    def write_dataframe(self, dataframe, sheet_name, startrow=0, bold_text=None, header=True, index=False):
+    def write_dataframe(self, dataframe, sheet_name, startrow=0, bold_text=None, header=True, index=False, start_col = 0):
         """
         Writes a pandas DataFrame to an Excel worksheet and optionally adds a bold header.
 
@@ -72,7 +72,7 @@ class ExcelReportGenerator:
         self._set_workbook()
         # Write the DataFrame to the Excel sheet
         dataframe.to_excel(
-            self.writer, sheet_name=sheet_name, startrow=startrow, header=header, index=index)
+            self.writer, sheet_name=sheet_name, startrow=startrow, startcol=start_col, header=header, index=index)
         
         # Apply bold text above the DataFrame if specified
         worksheet = self.writer.sheets[sheet_name]
@@ -476,6 +476,7 @@ def process_top_offenders(generator, top_offenders_table, plan_details_df, y_axi
     for combination in top_offenders_oos["Combination"].unique():
         # Filter the DataFrame for the current combination
         subset_df = top_offenders_table[top_offenders_table["Combination"] == combination].copy()
+
         subset_df[time_level] = pd.to_datetime(subset_df[time_level], errors="coerce")
 
         # Extract End of History date and populate the relevant columns
@@ -518,7 +519,6 @@ def process_top_offenders(generator, top_offenders_table, plan_details_df, y_axi
 
         #for Top Offenders comparison by run:
         # Append the dictionary to the list within the dictionary `Top_offenders_per_run_dict`
-        print(f'Before if: Top_offenders_per_run_dict = {Top_offenders_per_run_dict}')
         if combination not in Top_offenders_per_run_dict:
             Top_offenders_per_run_dict[combination] = []  # Initialize the list if not present
 
@@ -542,7 +542,26 @@ def process_top_offenders(generator, top_offenders_table, plan_details_df, y_axi
         sheet_name = str(combination)[:31]
         
 
+        # Identify columns ending with "methods", "level", or "status"
+        target_columns = [col for col in subset_df.columns 
+                        if col.endswith(('Forecast methods', 'Forecast level', 'Forecast status'))]
+
+        # Create a new DataFrame with unique values for target columns
+        unique_record = {col: subset_df[col].iloc[0] for col in target_columns}
+        unique_record_df = pd.DataFrame([unique_record])
+
+        # Drop target columns from the original DataFrame
+        subset_df = subset_df.drop(columns=target_columns)
+
         generator.write_dataframe(subset_df, sheet_name, bold_text=f"Combination: {combination}")
+        # Write the new DataFrame (unique_record_df) to cell W1
+        generator.write_dataframe(
+            unique_record_df,
+            sheet_name,
+            startrow=0,       # Row index for W1
+            start_col=22,      # Column index for W1
+            bold_text="Unique Record Data"
+        )
 
         # Define the X-axis range
         x_axis_col_index = subset_df.columns.get_loc("Month") + 1
@@ -625,10 +644,10 @@ def process_and_export(profile, plan, client, base_url, accuracy_table_id, top_o
             kinds_table.change_kinds_on_ODMC(kind_value, "Global")
             logging.info(f'Launched plan: {plan.name}:  kind value: {kind_value} ')
             
-
-        # Launch and monitor the plan
-        launch_response = plan.launch()
-        logging.info(f'Run is completed')
+        if what_to_tune != "Dummy":
+            # Launch and monitor the plan
+            launch_response = plan.launch()
+            logging.info(f'Run is completed')
 
 
         # Accuracy table setup
@@ -676,11 +695,13 @@ def process_and_export(profile, plan, client, base_url, accuracy_table_id, top_o
         # Determine file path for the report
         if what_to_tune == "Parameters": 
             if parameters_tuning_mode == 'Cartesian':
-                file_path = f"Permutation_{ind}_Dec012.xlsx"
+                file_path = f"Permutation_{ind}.xlsx"
             else:
-                file_path = f"{parameter_name}_{parameter_value}_Dec012.xlsx"
+                file_path = f"{parameter_name}_{parameter_value}.xlsx"
         elif what_to_tune == "CFs":
-            file_path = f"Kind_{kind_value}_Dec012.xlsx"
+            file_path = f"Kind_{kind_value}.xlsx"
+        elif what_to_tune == "Dummy":
+            file_path = f"Dummy_run.xlsx"
 
         # Export results to Excel
         Top_offenders_per_run_dict_updated = Export_Accuracy_to_Excel(
@@ -710,18 +731,23 @@ def process_and_export(profile, plan, client, base_url, accuracy_table_id, top_o
         )
 
          # Log success and return results
-        if what_to_tune == "Parameters": 
-            if what_to_tune == "Parameters": 
-                print(f"Exported results to {file_path} for parameter {parameter_name} = {parameter_value}")
-                logging.info(f'Exported results to {file_path} for parameter {parameter_name} = {parameter_value} ')
-                return accuracy_table.wmape, accuracy_table.bias, Top_offenders_per_run_dict_updated
-            else:
+        if what_to_tune == "Parameters" or what_to_tune == "Dummy": 
+            if parameters_tuning_mode == 'Cartesian':
+                logging.info(f'what_to_tune == "Parameters" or what_to_tune == "Dummy" and Cartesian')
                 print(f"Exported results to {file_path} for permutation {ind}")
                 logging.info(f'Exported results to {file_path} for permutation {ind} ')
+            elif parameters_tuning_mode == "regular":
+                logging.info(f'what_to_tune == "Parameters" or what_to_tune == "Dummy" and Regular')
+                print(f"Exported results to {file_path} for parameter {parameter_name} = {parameter_value}")
+                logging.info(f'Exported results to {file_path} for parameter {parameter_name} = {parameter_value} ')
+            return accuracy_table.wmape, accuracy_table.bias, Top_offenders_per_run_dict_updated
+
         elif what_to_tune == "CFs":
             print(f"Exported results to {file_path} for kind value {kind_value} ")
             logging.info(f'Exported results to {file_path} for kind value {kind_value} ')
             return accuracy_table.wmape, accuracy_table.bias, accuracy_table.merged_df, kinds_table, Top_offenders_per_run_dict_updated
+        
+
 
     except PlanExecutionError as e:
         # Handle plan execution errors

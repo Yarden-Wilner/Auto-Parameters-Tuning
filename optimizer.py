@@ -88,6 +88,7 @@ class ParameterOptimizer:
         self.Configure_best_kind_IDs_on_ODMC = None
         self.before_and_after_accuracy_df = None
         self.Top_offenders_per_run_dict = {}
+        self.is_dummy = False
 
     def run_process(self, what_to_tune, parameter_id, parameter_name, parameter_value, permutation, ind,CF_kinds_table_id, kind_value, Top_offenders_per_run_dict):
         '''
@@ -163,15 +164,12 @@ class ParameterOptimizer:
         else:
             # Tuning mode: Regular
             for value in parameter_values:
-                logging.info(f'In Regular')
                 print(f'----------------')
-                print(f'self.Top_offenders_per_run_dict: {self.Top_offenders_per_run_dict}') 
                 # Evaluate the current parameter value
                 wmape, bias, self.Top_offenders_per_run_dict  = self.run_process(self.what_to_tune, parameter_id = parameter_id, parameter_name = parameter_name,
                                                                                  parameter_value = value, permutation = None, ind = None, CF_kinds_table_id = None,
                                                                                  kind_value = None, Top_offenders_per_run_dict = self.Top_offenders_per_run_dict)                       
                 print(f'----------------')
-                print(f'self.Top_offenders_per_run_dict: {self.Top_offenders_per_run_dict}')       
                 logging.info(f'Current WMAPE: {wmape}, current Bias: {bias} ')
 
                 # Update metrics dictionary for the parameter and its value
@@ -395,6 +393,7 @@ class ParameterOptimizer:
                     #self.profile.change_parameter(parameter_id, parameter_value)
 
         else:
+            logging.info(f'profile.parameters_dict: {self.profile.parameters_dict} ')
              # Regular tuning mode: iterate through each parameter and its possible values
             for (parameter_id, parameter_name), parameter_values in self.profile.parameters_dict.items():
                  # Evaluate each parameter value
@@ -403,39 +402,43 @@ class ParameterOptimizer:
 
                 # Store the best value and WMAPE for the parameter
                 self.best_values_dict_params[parameter_name] = [best_value, best_wmape]
-                logging.info(f'best_value is: {best_value}, self.best_value is: {self.best_value} ')
+                if not self.is_dummy:
+                    logging.info(f'best_value is: {best_value}, self.best_value is: {self.best_value} ')
 
                 if self.tune_by_wmape != "On" or best_value is None:
                     print("Best Value is None")
                     # If no improvement, reset to the initial parameter value
-                    logging.info(f'Initializing the profile to have initial parameters values: {parameter_name} ')
+                    if not self.is_dummy:
+                        logging.info(f'Initializing the profile to have initial parameters values: {parameter_name} ')
                     original_parameter_value = self.profile.initial_parameters.loc[self.profile.initial_parameters['ForecastingParameterName'] == parameter_name, 'ForecastingParameterValue'].values
                     original_parameter_value_int = float(original_parameter_value[0])
-                    self.profile.change_parameter(parameter_id, original_parameter_value_int)  # Update the profile
                     self.best_values_dict_params[parameter_name] = [original_parameter_value, best_wmape]
-                    logging.info(f'best_value is: {original_parameter_value}')
-                    print(f"Updated {parameter_name} to the initial value:{original_parameter_value_int} as no other tested value had better WMAPE")
+                    if not self.is_dummy:
+                        self.profile.change_parameter(parameter_id, original_parameter_value_int)  # Update the profile
+                        logging.info(f'best_value is: {original_parameter_value}')
+                        print(f"Updated {parameter_name} to the initial value:{original_parameter_value_int} as no other tested value had better WMAPE")
                 else:
                     # Store the best value and WMAPE for the parameter
                     self.best_values_dict_params[parameter_name] = [best_value, best_wmape]
-                    logging.info(f'best_value is: {best_value}')
-                    # Update the profile with the best value found
-                    logging.info(f'Configuring best value in the profile: {parameter_name}: value: {best_value} ')
-                    self.profile.change_parameter(parameter_id, best_value)  # Update the profile
-                    print(f"Updated {parameter_name} to {best_value} with WMAPE: {best_wmape}")
+                    if not self.is_dummy:
+                        logging.info(f'best_value is: {best_value}')
+                        # Update the profile with the best value found
+                        logging.info(f'Configuring best value in the profile: {parameter_name}: value: {best_value} ')
+                        self.profile.change_parameter(parameter_id, best_value)  # Update the profile
+                        print(f"Updated {parameter_name} to {best_value} with WMAPE: {best_wmape}")
 
 
         # Create summary results and reports
         self.create_all_parameters_results()
         self.create_best_values_df()
         self.create_before_and_after_accuracy_df()
-
-        # Generate the final report
-        final_report(self.profile, self.all_parameters_results, self.before_and_after_accuracy_df,
-                     self.best_values_df,best_CF_Kind_value_df = None, all_kinds_results_df = None, 
-                     what_to_tune = "Parameters", best_kinds_df = None, file_path = "Final Report Parameters.xlsx")
-        if self.Top_offenders_per_run_dict:
-            self.create_top_offenders_comparison_dfs()
+        if not self.is_dummy:
+            # Generate the final report
+            final_report(self.profile, self.all_parameters_results, self.before_and_after_accuracy_df,
+                        self.best_values_df,best_CF_Kind_value_df = None, all_kinds_results_df = None, 
+                        what_to_tune = "Parameters", best_kinds_df = None, file_path = "Final Report Parameters.xlsx")
+            if self.Top_offenders_per_run_dict:
+                self.create_top_offenders_comparison_dfs()
 
 
 
@@ -502,7 +505,6 @@ class ParameterOptimizer:
         for kind_value in self.kind_values_lst:
             # Run the tuning process for the current kind value
             print(f'in optimize CFs: kind value = {kind_value}')
-            print(f'in optimize CFs: self.Top_offenders_per_run_dict = {self.Top_offenders_per_run_dict}')
             wmape, bias, merged_df, kinds_table, self.Top_offenders_per_run_dict  = self.run_process(self.what_to_tune, None, None, None, permutation = None, ind = None, 
                                                                    CF_kinds_table_id = self.CF_kinds_table_id, kind_value = kind_value,
                                                                    Top_offenders_per_run_dict = self.Top_offenders_per_run_dict)
@@ -584,12 +586,17 @@ class ParameterOptimizer:
             logging.info('Going CFs Tuning')
             print("Going CFs Tuning")
             self.optimize_CFs_kinds()
-        else:
-            # Otherwise, assume the target is Parameters and proceed with parameter tuning
+        elif self.what_to_tune == "Parameters":
             logging.info('Going Parameters Tuning')
             print("Going Parameters tuning")
             self.optimize_parameters()
-
+        elif self.what_to_tune == "Dummy":
+            logging.info('Dummy mode. Not launching plan runs, only generating reports.')
+            self.parameters_tuning_mode = "Regular"
+            self.is_dummy = True
+            self.profile.parameters_dict = {(0,'FitValidationSensitivity'): [1]}
+            self.optimize_parameters()
+            
         
 
      
