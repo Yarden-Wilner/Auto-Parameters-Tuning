@@ -25,10 +25,10 @@ Kind Values:
 Tune_by_step: "Off"
 #Forecasting Parameters
 parameters:
-  FitValidationSensitivity:
+  #FitValidationSensitivity:
   #  - 0.5
   #  - 1
-    - 1.7
+  #  - 1.7
   #  - 2
   #ForecastValidationSensitivity:
   #  - 3.5
@@ -38,9 +38,9 @@ parameters:
   #  - 1
   # - 2
   #  - 3
-  #OutliersPercent:
+  OutliersPercent:
     # 20
-  #  - 5
+    - 5
     # 10
   #EnableNonNegRegr:
   #  - 1
@@ -62,4 +62,4 @@ Parameters_tuning_mode: "Regular" #options: "Regular" or "Cartesian"
 
 
 Configure best kind IDs on ODMC: "Off" #could be "On" or "Off"
-run_mode: "Dummy" #"Dummy" / "Parameters" / "CFs" / "Parameters then CFs" / "CFs then Parameters"
+run_mode: "Parameters" #"Dummy" / "Parameters" / "CFs" / "Parameters then CFs" / "CFs then Parameters"
