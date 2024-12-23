@@ -1,14 +1,14 @@
 # User credentials
-username: "sharon.eliasi@stryker.com"
-password: "Welcome123"
+username: "SCN_ADMIN"
+password: "Welcome123!"
 
 #servername
-servername: "fa-euwg-dev3-saasfaprod1.fa.ocs.oraclecloud.com" #enter the main URL part of the environment
+servername: "fa-epyt-test-saasfaprod1.fa.ocs.oraclecloud.com" #enter the main URL part of the environment
 
 #IDs of ODMC profile,pla,accuracy table, top offenders table
-profile_id: "300000049953003"
-plan_id: "300000049960080"  #32->TX - SYK Dem Plan - JR - copy4
-accuracy_table_id: "300000049953251"  #@TX Y - Tuning Table
+profile_id: "300000015730132"
+plan_id: "300000015838445"  #32->TX - SYK Dem Plan - JR - copy4
+accuracy_table_id: "300000015925166"  #@TX Y - Tuning Table
 top_offenders_table_id: "300000049968289"
 year_over_year_table_id: "300000050001375" #@TX Y - Yoy
 CF_kinds_table_id: "300000049968529" #@TX Y - Kinds
@@ -25,8 +25,8 @@ Kind Values:
 Tune_by_step: "Off"
 #Forecasting Parameters
 parameters:
-  #FitValidationSensitivity:
-  #  - 0.5
+  FitValidationSensitivity:
+    - 0.5
   #  - 1
   #  - 1.7
   #  - 2
@@ -38,9 +38,9 @@ parameters:
   #  - 1
   # - 2
   #  - 3
-  OutliersPercent:
+  #OutliersPercent:
     # 20
-    - 5
+    #- 5
     # 10
   #EnableNonNegRegr:
   #  - 1
@@ -62,4 +62,4 @@ Parameters_tuning_mode: "Regular" #options: "Regular" or "Cartesian"
 
 
 Configure best kind IDs on ODMC: "Off" #could be "On" or "Off"
-run_mode: "Parameters" #"Dummy" / "Parameters" / "CFs" / "Parameters then CFs" / "CFs then Parameters"
+run_mode: "Dummy" #"Dummy" / "Parameters" / "CFs" / "Parameters then CFs" / "CFs then Parameters"
