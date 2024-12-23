@@ -108,9 +108,9 @@ class Accuracy_Table(Table):
 
         for idx, header in enumerate(table_levels_lst):
             normalized_header = header.lower()  # Normalize the header to lowercase
-            if f"{normalized_output_measure} forecast method" in normalized_header:
+            if f"{normalized_output_measure} forecast method" in normalized_header or normalized_header.endswith("forecasting methods"):
                 self.forecast_methods_col_indx = idx  # Store the index of the column
-            elif f"{normalized_output_measure} forecast level" in normalized_header:
+            elif f"{normalized_output_measure} forecast level" in normalized_header or normalized_header.endswith("forecasting levels"):
                 self.forecast_levels_col_indx = idx  # Store the index of the column
 
     
