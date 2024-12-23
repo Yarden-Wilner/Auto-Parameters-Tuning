@@ -1,21 +1,29 @@
-2024-12-18 16:06:25,649 - INFO - Loaded configuration values:
-2024-12-18 16:06:25,650 - INFO - username: sharon.eliasi@stryker.com
-2024-12-18 16:06:25,650 - INFO - password: Welcome123
-2024-12-18 16:06:25,650 - INFO - servername: fa-euwg-dev3-saasfaprod1.fa.ocs.oraclecloud.com
-2024-12-18 16:06:25,650 - INFO - profile_id: 300000049953003
-2024-12-18 16:06:25,650 - INFO - plan_id: 300000049960080
-2024-12-18 16:06:25,650 - INFO - accuracy_table_id: 300000049953251
-2024-12-18 16:06:25,650 - INFO - top_offenders_table_id: 300000049968289
-2024-12-18 16:06:25,650 - INFO - year_over_year_table_id: 300000050001375
-2024-12-18 16:06:25,650 - INFO - parameters_input: {'FitValidationSensitivity': [1.7]}
-2024-12-18 16:06:25,650 - INFO - number_of_top_offenders: 3
-2024-12-18 16:06:25,650 - INFO - tune_by_wmape: On
-2024-12-18 16:06:25,650 - INFO - base_wmape: 0.1526
-2024-12-18 16:06:25,650 - INFO - base_bias: -0.0336
-2024-12-18 16:06:25,650 - INFO - parameters_tuning_mode: Regular
-2024-12-18 16:06:25,650 - INFO - tune_by_step: Off
-2024-12-18 16:06:25,650 - INFO - CF_kinds_table_id: 300000049968529
-2024-12-18 16:06:25,650 - INFO - kind_values_lst: [1, 2, 800]
-2024-12-18 16:06:25,650 - INFO - Configure_best_kind_IDs_on_ODMC: Off
-2024-12-18 16:06:25,650 - INFO - run_mode: Dummy
-2024-12-18 16:06:25,650 - INFO - __________________________________________________________________________________________________________________________________________________
+2024-12-23 08:21:39,789 - INFO - Loaded configuration values:
+2024-12-23 08:21:39,789 - INFO - username: sharon.eliasi@stryker.com
+2024-12-23 08:21:39,789 - INFO - password: Welcome123
+2024-12-23 08:21:39,789 - INFO - servername: fa-euwg-dev3-saasfaprod1.fa.ocs.oraclecloud.com
+2024-12-23 08:21:39,789 - INFO - profile_id: 300000049953003
+2024-12-23 08:21:39,789 - INFO - plan_id: 300000049960080
+2024-12-23 08:21:39,789 - INFO - accuracy_table_id: 300000049953251
+2024-12-23 08:21:39,789 - INFO - top_offenders_table_id: 300000049968289
+2024-12-23 08:21:39,789 - INFO - year_over_year_table_id: 300000050001375
+2024-12-23 08:21:39,789 - INFO - parameters_input: {'OutliersPercent': [5]}
+2024-12-23 08:21:39,789 - INFO - number_of_top_offenders: 3
+2024-12-23 08:21:39,789 - INFO - tune_by_wmape: On
+2024-12-23 08:21:39,789 - INFO - base_wmape: 0.1526
+2024-12-23 08:21:39,789 - INFO - base_bias: -0.0336
+2024-12-23 08:21:39,789 - INFO - parameters_tuning_mode: Regular
+2024-12-23 08:21:39,789 - INFO - tune_by_step: Off
+2024-12-23 08:21:39,789 - INFO - CF_kinds_table_id: 300000049968529
+2024-12-23 08:21:39,789 - INFO - kind_values_lst: [1, 2, 800]
+2024-12-23 08:21:39,789 - INFO - Configure_best_kind_IDs_on_ODMC: Off
+2024-12-23 08:21:39,789 - INFO - run_mode: Parameters
+2024-12-23 08:21:39,789 - INFO - __________________________________________________________________________________________________________________________________________________
+2024-12-23 08:21:43,055 - INFO - Going Parameters Tuning
+2024-12-23 08:21:43,056 - INFO - profile.parameters_dict: {(300000049953025, 'OutliersPercent'): [5]} 
+2024-12-23 08:21:46,712 - INFO - Launched plan: TX SYK Dem Plan - JR - Copy3:  OutliersPercent value: 5 
+2024-12-23 08:23:50,177 - INFO - Current status of the plan run: 1 (Running).
+2024-12-23 08:25:52,764 - INFO - Current status of the plan run: 1 (Running).
+2024-12-23 08:27:54,685 - INFO - Current status of the plan run: 1 (Running).
+2024-12-23 08:29:56,575 - INFO - Current status of the plan run: 1 (Running).
+2024-12-23 08:31:58,479 - ERROR - Plan run finished with warnings

@@ -3,26 +3,29 @@
 #   1. Read config parameters
 #   2. Initialize class instance: client, profile plan, optimizer
 #   3. start process by calling optimizer.functions_navigator()
-#Last Update: 17-Dec-2024
+#Last Update: 23-Dec-2024
 #Environment: Stryker Dev3
 ################################################################
 
 from library_manager import import_or_install
-from configuration_handler import ConfigYaml, APIClient
-from odmc_objects import Profile, Plan
-from optimizer import ParameterOptimizer
-from validation import validate_parameter_values, get_valid_float, transform_parameters, validate_tune_by_wmape, validate_number_of_top_offenders, validate_parameters_tuning_mode, validate_tune_by_step, validate_run_mode
 
 # Define the libraries needed for this script
 libraries = [
     "pandas",
     "requests",
     "numpy",
-    "yaml"
+    "PyYaml",
+    "XlsxWriter"
 ]
 
 # Ensure libraries are installed
 import_or_install(libraries)
+
+from configuration_handler import ConfigYaml, APIClient
+from odmc_objects import Profile, Plan
+from optimizer import ParameterOptimizer
+from validation import validate_parameter_values, get_valid_float, transform_parameters, validate_tune_by_wmape, validate_number_of_top_offenders, validate_parameters_tuning_mode, validate_tune_by_step, validate_run_mode
+
 
 import logging
 import sys
@@ -106,7 +109,6 @@ if __name__ == "__main__":
     
     logging.info("__________________________________________________________________________________________________________________________________________________")
 
-    sys.exit(1)
 
     #basic url setup
     base_url = f"https://{servername}:443/fscmRestApi/resources/11.13.18.05"

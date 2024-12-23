@@ -58,6 +58,8 @@ class ConfigYaml:
         self.config_file = config_file
         self.config = None
 
+
+
     def load_config(self):
         """
         Load configuration from the specified YAML file.

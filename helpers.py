@@ -15,8 +15,6 @@ import pandas as pd
 import logging
 
 
-plan_id = "300000049960080"
-
 class ExcelReportGenerator:
     """
     A utility class for generating and formatting Excel reports using pandas and xlsxwriter.
@@ -640,7 +638,7 @@ def process_and_export(profile, plan, client, base_url, accuracy_table_id, top_o
 
          # Handle tuning for CFs
         elif what_to_tune == "CFs":
-            kinds_table = Kinds_Table(client, plan_id, plan.input_measure, plan.output_measure, CF_kinds_table_id)
+            kinds_table = Kinds_Table(client, plan.plan_id, plan.input_measure, plan.output_measure, CF_kinds_table_id)
             kinds_table.change_kinds_on_ODMC(kind_value, "Global")
             logging.info(f'Launched plan: {plan.name}:  kind value: {kind_value} ')
             

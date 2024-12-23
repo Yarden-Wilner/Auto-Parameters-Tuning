@@ -29,6 +29,7 @@ class Profile:
         self.client = client
         self.profile_id = profile_id
         self.profile_url = f"{base_url}/forecastingProfiles/{profile_id}/child/forecastingParameters"
+        print(self.profile_url)
         self.parameters_input  = parameters_input
         self.profile_items_df = None
         self.name = None
