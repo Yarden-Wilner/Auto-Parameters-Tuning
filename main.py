@@ -7,7 +7,7 @@
 #Environment: Stryker Dev3
 ################################################################
 
-from library_manager import import_or_install
+#from library_manager import import_or_install
 
 # Define the libraries needed for this script
 libraries = [
@@ -19,7 +19,7 @@ libraries = [
 ]
 
 # Ensure libraries are installed
-import_or_install(libraries)
+#import_or_install(libraries)
 
 from configuration_handler import ConfigYaml, APIClient
 from odmc_objects import Profile, Plan
